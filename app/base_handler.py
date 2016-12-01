@@ -4,6 +4,7 @@ import jinja2
 from app.lib.security import make_secure_val, check_secure_val
 from app.models.user import User
 
+
 class BaseHandler(webapp2.RequestHandler):
     '''
 
