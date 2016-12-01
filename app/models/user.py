@@ -2,9 +2,9 @@ from app.lib.security import make_pw_hash, valid_pw
 from google.appengine.ext import db
 
 
-
 def users_key(group='default'):
     return db.Key.from_path('users', group)
+
 
 class User(db.Model):
     name = db.StringProperty(required=True)

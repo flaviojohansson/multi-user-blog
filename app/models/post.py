@@ -2,8 +2,9 @@ from google.appengine.ext import db
 from app.base_handler import BaseHandler
 
 
-def blogs_key(name = 'default'):
+def blogs_key(name='default'):
     return db.Key.from_path('blogs', name)
+
 
 class Post(db.Model):
     user_id = db.ReferenceProperty(required=True)
@@ -16,3 +17,4 @@ class Post(db.Model):
     def render(self):
         self._render_text = self.content.replace('\n', '<br>')
         return BaseHandler.simple_render_str("post.html", p=self)
+
