@@ -1,37 +1,40 @@
-'''
-Module
-'''
 import re
 from app.base_handler import BaseHandler
 from app.models.user import User
 
 USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
+
+
 def valid_username(username):
     return username and USER_RE.match(username)
 
 PASS_RE = re.compile(r"^.{3,20}$")
+
+
 def valid_password(password):
     return password and PASS_RE.match(password)
 
 EMAIL_RE = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
+
+
 def valid_email(email):
     return not email or EMAIL_RE.match(email)
+
 
 class Signup(BaseHandler):
     '''
     '''
-#    def __init__(self):
-#        self.username = ""
-#        self.password = ""
-#        self.verify = ""
-#        self.email = ""
+    username = ""
+    password = ""
+    verify = ""
+    email = ""
 
     def get(self):
         self.render("signup.html")
 
     def post(self):
         have_error = False
-        self.username = self.request.get('username')
+        self.username = self.request.get('username').lower()
         self.password = self.request.get('password')
         self.verify = self.request.get('verify')
         self.email = self.request.get('email')
@@ -61,6 +64,7 @@ class Signup(BaseHandler):
 
     def done(self, *a, **kw):
         raise NotImplementedError
+
 
 class Register(Signup):
     def done(self):

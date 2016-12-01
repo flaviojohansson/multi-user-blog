@@ -11,7 +11,7 @@ class Login(BaseHandler):
         self.render("login.html")
 
     def post(self):
-        username = self.request.get('username')
+        username = self.request.get('username').lower()
         password = self.request.get('password')
 
         user = User.login(username, password)
