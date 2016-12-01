@@ -1,7 +1,7 @@
 <article class="col-sm-12">
-    <h2>
-        <a href="/blog/{{p.key().id()}}">{{p.subject}}</a>
-    </h2>
+    <a href="/blog/{{p.key().id()}}">
+        <h2>{{p.subject}}</h2>
+    </a>
     <h5>
         <span class="glyphicon glyphicon-time"></span> Posted by {{p.user_name}}, {{p.created.strftime("%b %d %Y")}}.
     </h5>
