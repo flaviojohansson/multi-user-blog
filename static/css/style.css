@@ -1,3 +1,8 @@
+* {
+    color: #2d3c49;
+    font: normal 400 16px 'Lato', sans-serif;
+}
+
 body {
   padding-top: 70px;
 }

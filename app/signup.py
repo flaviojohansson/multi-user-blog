@@ -72,10 +72,13 @@ class Register(Signup):
         user = User.by_name(self.username)
         if user:
             msg = 'That user already exists.'
-            self.render('signup.html', error_username=msg)
+            # I wanna to show the username, so one can check for typos
+            params = dict(username=self.username,
+                          email=self.email,
+                          error_username=msg)
+            self.render('signup.html', **params)
         else:
             user = User.register(self.username, self.password, self.email)
             user.put()
-
             self.login(user)
             self.redirect('/blog')
