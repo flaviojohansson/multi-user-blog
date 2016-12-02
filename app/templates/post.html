@@ -4,7 +4,8 @@
     </a>
     <h5>
         <span class="glyphicon glyphicon-time"></span> Posted by {{p.user_name}}, {{p.created.strftime("%b %d %Y")}}.
+        <a href="/blog/edit/{{p.key().id()}}">edit post</a>
     </h5>
     <br />
-    <p>{{p._render_text | safe | urlize(40, true) }}</p>
+    <p class="bg-warning article-body">{{p._render_text | safe | urlize(40, true) }}</p>
 </article>
