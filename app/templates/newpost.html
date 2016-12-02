@@ -4,18 +4,18 @@
     <form class="form-group form-sign" method="post">
         <h2 class="text-center">Write Post</h2>
         <!--has-error-->
-        <div class="form-group">
+        <div class="form-group {% if error %}has-error{% endif %}">
             <label class="control-label" for="subject">Subject</label>
             <input type="text" class="form-control" id="subject" name="subject" value="{{subject}}">
-            <span class="help-block">{{error_username}}</span>
         </div>
         <div class="form-group">
             <label class="control-label" for="content">Content</label>
-            <textarea class="form-control" id="content" name="content" value="{{content}}"></textarea>
+            <textarea class="form-control" id="content" name="content">{{content}}</textarea>
         </div>
         <div class="form-group has-error">
             <span class="help-block">{{error}}</span>
         </div>
         <button type="submit" class="btn btn-primary">Post</button>
+        <a role="button" class="btn btn-primary" href="/blog">Give up</a>
     </form>
 {% endblock %}

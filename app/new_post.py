@@ -26,4 +26,7 @@ class NewPost(BaseHandler):
             self.redirect('/blog/%s' % str(post.key().id()))
         else:
             error = "Subject and content, please!"
-            self.render("newpost.html", subject=subject, content=content, error=error)
+            self.render("newpost.html",
+                        subject=subject,
+                        content=content,
+                        error=error)

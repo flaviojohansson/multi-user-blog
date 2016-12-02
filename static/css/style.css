@@ -11,20 +11,6 @@ body {
     height: 20px;
 }
 
-/*
-.navbar-default {
-    background-color: #428bca;
-}
-*/
-
-.navbar-default .navbar-toggle .icon-bar {
-    background-color: black;
-}
-
-.navbar-default .navbar-nav>li>a {
-  color: black;
-}
-
 .form-sign {
     max-width: 330px;
     margin: 0 auto
@@ -34,4 +20,20 @@ textarea {
     height: 150px; 
     min-height: 150px;  
     max-height: 150px;
+}
+
+.navbar-collapse.collapse {
+  display: block!important;
+}
+
+.navbar-nav>li, .navbar-nav {
+  float: left !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px !important;
+}
+
+.navbar-right {
+  float: right!important;
 }
