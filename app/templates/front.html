@@ -1,14 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-
     <h1 class="text-center">{{ user.name | title }}'s blog</h1>
-    <!--
-    <div class="text-center">
-        <a role="button" href="/blog/newpost" class="btn btn-primary">Write post</a>
-        <a role="button" href="/logout" class="btn btn-primary">Logout</a>
-    </div>
-    -->
     <hr>
     {% for p in posts %}
         {{ p.render() | safe}}
