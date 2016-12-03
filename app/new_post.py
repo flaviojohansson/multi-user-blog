@@ -6,7 +6,7 @@ from app.models.post import Post, blogs_key
 class NewPost(BaseHandler):
     def get(self):
         if self.user:
-            self.render("newpost.html")
+            self.render("edit_post.html")
         else:
             self.redirect("/login")
 
@@ -27,7 +27,7 @@ class NewPost(BaseHandler):
             self.redirect('/blog/%s' % str(post.key().id()))
         else:
             error = "Subject and content, please!"
-            self.render("newpost.html",
+            self.render("edit_post.html",
                         subject=subject,
                         content=content,
                         error=error)
@@ -45,7 +45,8 @@ class EditPost(BaseHandler):
             self.error(404)
             return
 
-        self.render("newpost.html",
+        self.render("edit_post.html",
+                    post_id=post_id,
                     subject=post.subject,
                     content=post.content)
 
@@ -69,7 +70,7 @@ class EditPost(BaseHandler):
             self.redirect('/blog/%s' % str(post.key().id()))
         else:
             error = "Subject and content, please!"
-            self.render("newpost.html",
+            self.render("edit_post.html",
                         subject=subject,
                         content=content,
                         error=error)
