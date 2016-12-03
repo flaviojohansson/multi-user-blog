@@ -1,8 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-  {{post.render() | safe}}
+    {{post.render() | safe}}
 
+    {% if user.name != post.user_name %}
+    <button type="submit" class="btn btn-sm btn-default">
+        <span class="glyphicon glyphicon-heart-empty"></span>
+    </button>
+    {% endif %}
+        
+    {% if user %}
     <article>
         <hr />
         <h4>Write a comment</h4>
@@ -15,9 +22,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Send</button>                
         </form>
-        <hr />
         <h4>Comments</h4>
-
         {% for comment in post.comments.order('-created') %}
             <blockquote>
                 {{ comment.content | safe }}
@@ -27,5 +32,6 @@
             </blockquote>
         {% endfor %}
 
-    </article>  
+    </article>
+    {% endif %}  
 {% endblock %}

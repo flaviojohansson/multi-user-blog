@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-sm-12">
             <h5>
-                <span class="glyphicon glyphicon-time"></span> Posted by {{p.user_name}}, {{p.created.strftime("%b %d %Y")}}.
+                <span class="glyphicon glyphicon-time"></span> Posted by {{p.user_name}}, {{p.created.strftime("%I:%M%p %b %d %Y")}}.
                 <a href="/blog/edit/{{p.key().id()}}" class="pull-right">Edit</a>
             </h5>
         </div>
