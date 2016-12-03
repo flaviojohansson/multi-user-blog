@@ -2,7 +2,7 @@
 
 {% block content %}
     <form class="form-group form-sign" method="post">
-        <h2 class="text-center">Write Post</h2>
+        <h2 class="text-center">{% if post_id %}Edit{% else %}New{% endif %} Post</h2>
         <!--has-error-->
         <div class="form-group {% if error %}has-error{% endif %}">
             <label class="control-label" for="subject">Subject</label>
