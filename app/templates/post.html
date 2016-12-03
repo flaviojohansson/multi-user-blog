@@ -4,14 +4,7 @@
             <a href="/blog/{{p.key().id()}}">
                 <h2>{{p.subject}}</h2>
             </a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <h5>
-                <span class="glyphicon glyphicon-time"></span> Posted by {{p.user_name}}, {{p.created.strftime("%I:%M%p %b %d %Y")}}.
-                <a href="/blog/edit/{{p.key().id()}}" class="pull-right">Edit</a>
-            </h5>
+            <p class="lead">By {{p.user_name}}.</p>
         </div>
     </div>
     <div class="row">
@@ -21,11 +14,13 @@
             </blockquote>
         </div>
     </div>
-
     <div class="row">
         <div class="col-sm-12">
+            <h5>
+                <span class="glyphicon glyphicon-time"></span> Posted {{p.created.strftime("%b %d %Y @ %I:%M%p")}}.
+                <a href="/blog/edit/{{p.key().id()}}" class="pull-right">Edit</a>
+            </h5>
             <i>{{ total_comments }} comment{% if total_comments > 1 %}s{% endif %}</i>
         </div>
     </div>
-
 </article>
