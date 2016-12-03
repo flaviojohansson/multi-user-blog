@@ -23,5 +23,9 @@ class Post(db.Model):
                           re.MULTILINE | re.UNICODE)
         self._render_text = urls.sub(r'<a href="\1" target="_blank">\1</a>',
                                      self._render_text)
-        return BaseHandler.simple_render_str("post.html", p=self)
+
+        total_comments = self.comments.count()
+        return BaseHandler.simple_render_str("post.html",
+                                             p=self,
+                                             total_comments=total_comments)
 
