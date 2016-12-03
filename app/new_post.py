@@ -13,6 +13,7 @@ class NewPost(BaseHandler):
     def post(self):
         if not self.user:
             self.redirect('/login')
+            return
 
         subject = self.request.get('subject')
         content = self.request.get('content')

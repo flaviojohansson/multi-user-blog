@@ -22,6 +22,12 @@ textarea {
     max-height: 150px;
 }
 
+.comment {
+    height: 100px; 
+    min-height: 100px;  
+    max-height: 100px;
+}
+
 .article-body {
     padding: 15px;
     word-wrap: break-word;

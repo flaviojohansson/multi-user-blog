@@ -2,4 +2,30 @@
 
 {% block content %}
   {{post.render() | safe}}
+
+    <article>
+        <hr />
+        <h4>Write a comment</h4>
+        <form class="form-group" method="post">
+            <div class="form-group">
+                <textarea class="form-control comment" name="content" placeholder="Write something nice">{{content}}</textarea>
+            </div>
+            <div class="form-group has-error">
+                <span class="help-block">{{error}}</span>
+            </div>
+            <button type="submit" class="btn btn-primary">Send</button>                
+        </form>
+        <hr />
+        <h4>Comments</h4>
+
+        {% for comment in post.comments.order('-created') %}
+            <blockquote>
+                {{ comment.content | safe }}
+                <h5>
+                    By {{comment.user_name}}, {{comment.created.strftime("%I:%M%p %b %d %Y")}}.
+                </h5>
+            </blockquote>
+        {% endfor %}
+
+    </article>  
 {% endblock %}
