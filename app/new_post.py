@@ -53,6 +53,22 @@ class EditPost(BaseHandler):
     def post(self, post_id):
         if not self.user:
             self.redirect('/login')
+            return
+
+        self.redirect('/signup')
+
+        if self.request.get('action') == "delete":
+            key = db.Key.from_path('Post', int(post_id), parent=blogs_key())
+            post = db.get(key)
+
+            # Make sure the logger user is the owner of the post
+            if self.user.name != post.user_name:
+                self.redirect('/blog')
+                return
+
+            post.delete()
+            self.redirect('/blog')
+            return
 
         subject = self.request.get('subject')
         content = self.request.get('content')
