@@ -12,13 +12,13 @@
             <blockquote class="article-body">
             {{p._render_text | safe }}
             </blockquote>
+            <a href="/blog/edit/{{p.key().id()}}" class="btn btn-primary btn-xs">Edit Post</a>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
             <h5>
                 <span class="glyphicon glyphicon-time"></span> Posted {{p.created.strftime("%b %d %Y @ %I:%M%p")}}.
-                <a href="/blog/edit/{{p.key().id()}}" class="pull-right">Edit</a>
             </h5>
             <i>{{ total_comments }} comment{% if total_comments > 1 %}s{% endif %}</i>
         </div>
