@@ -14,8 +14,10 @@ class Post(db.Model):
     content = db.TextProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)
     last_modified = db.DateTimeProperty(auto_now=True)
+    total_comments = 0
+    total_likes = 0
 
-    def render(self):
+    def render(self, user):
         self._render_text = self.content.replace('\n', '<br>')
 
         # Find URL inside the text and converts to clickable links
@@ -24,8 +26,14 @@ class Post(db.Model):
         self._render_text = urls.sub(r'<a href="\1" target="_blank">\1</a>',
                                      self._render_text)
 
-        total_comments = self.comments.count()
+        if self.comments:
+            self.total_comments = self.comments.count()
+        if self.likes:
+            self.total_likes = self.likes.count()
+
+        # As long as this is a DB class, it's calling a class method,
+        # so it does not inherites BaseHandler user attribute 
         return BaseHandler.simple_render_str("post.html",
                                              p=self,
-                                             total_comments=total_comments)
+                                             user=user)
 

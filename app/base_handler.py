@@ -24,6 +24,7 @@ class BaseHandler(webapp2.RequestHandler):
         '''
         '''
         jinja_template = cls.jinja_env.get_template(template)
+        # Always send the user
         return jinja_template.render(params)
 
     def render_str(self, template, **params):

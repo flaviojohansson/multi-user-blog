@@ -1,14 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {{post.render() | safe}}
 
-    {% if user.name != post.user_name %}
-    <button type="submit" class="btn btn-sm btn-default">
-        <span class="glyphicon glyphicon-heart-empty"></span>
-    </button>
-    {% endif %}
-        
+    {{post.render(user) | safe}}
+
     {% if user %}
     <article>
         <hr />

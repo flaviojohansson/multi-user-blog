@@ -4,7 +4,7 @@
     <h1 class="text-center">{{ user.name | title }}'s blog</h1>
     <hr>
     {% for p in posts %}
-        {{ p.render() | safe}}
+        {{ p.render(user) | safe}}
     {% endfor %}
 
 {% endblock %}

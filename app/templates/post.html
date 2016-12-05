@@ -12,7 +12,17 @@
             <blockquote class="article-body">
             {{p._render_text | safe }}
             </blockquote>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {% if user.name == p.user_name %}          
             <a href="/blog/edit/{{p.key().id()}}" class="btn btn-primary btn-xs">Edit Post</a>
+            {% else %}
+            <form method="post">
+                <button type="submit" name="action" value="like" class="btn btn-primary btn-xs">Like <span class="badge">{{ p.total_likes }}</span></button>
+            </form>
+            {% endif %}
         </div>
     </div>
     <div class="row">
@@ -20,7 +30,7 @@
             <h5>
                 <span class="glyphicon glyphicon-time"></span> Posted {{p.created.strftime("%b %d %Y @ %I:%M%p")}}.
             </h5>
-            <i>{{ total_comments }} comment{% if total_comments > 1 %}s{% endif %}</i>
+            <em>{{ p.total_comments }} comment{% if p.total_comments > 1 %}s{% endif %}</em>
         </div>
     </div>
 </article>

@@ -51,38 +51,43 @@ class EditPost(BaseHandler):
                     subject=post.subject,
                     content=post.content)
 
+    def delete(self):
+        '''
+        '''
+        # Make sure the logged user is the owner of the post
+        if self.user.name != post.user_name:
+            self.redirect('/blog/%s' % str(post.key().id()))
+            return
+
+        post.delete()
+        self.redirect('/blog')
+        return
+
     def post(self, post_id):
         if not self.user:
             self.redirect('/login')
             return
 
-        self.redirect('/signup')
+        # Get the post itself
+        key = db.Key.from_path('Post', int(post_id), parent=blogs_key())
+        post = db.get(key)
 
+        # When the user clicks on the delete button the action becomes 'delete'
         if self.request.get('action') == "delete":
-            key = db.Key.from_path('Post', int(post_id), parent=blogs_key())
-            post = db.get(key)
-
-            # Make sure the logger user is the owner of the post
-            if self.user.name != post.user_name:
-                self.redirect('/blog')
-                return
-
-            post.delete()
-            self.redirect('/blog')
+            self.delete(post)
             return
 
+        # The default operation is update the post
         subject = self.request.get('subject')
         content = self.request.get('content')
 
         if subject and content:
-
-            key = db.Key.from_path('Post', int(post_id), parent=blogs_key())
-            post = db.get(key)
-            # TODO : Check if user is the owner of the post
-            # TODO : Check if post found
+            # Make sure the logged user is the owner of the post
+            if self.user.name != post.user_name:
+                self.redirect('/blog/%s' % str(post.key().id()))
+                return
             post.subject = subject
             post.content = content
-
             post.put()
             self.redirect('/blog/%s' % str(post.key().id()))
         else:
