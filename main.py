@@ -6,7 +6,8 @@ from app.signup import Register
 from app.login import Login
 from app.logout import Logout
 from app.blog import Blog
-from app.new_post import NewPost, EditPost
+from app.new_post import NewPost
+from app.edit_post import EditPost
 from app.post_page import PostPage
 
 
