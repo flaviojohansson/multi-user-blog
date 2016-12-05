@@ -32,3 +32,13 @@ textarea {
     padding: 15px;
     word-wrap: break-word;
 }
+
+.header-btn {
+    padding-right: 15px;
+}
+
+@media (min-width: 768px) {
+    .header-btn {
+        padding-right: 0;
+    }   
+}
