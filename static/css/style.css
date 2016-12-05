@@ -23,9 +23,9 @@ textarea {
 }
 
 .comment {
-    height: 100px; 
-    min-height: 100px;  
-    max-height: 100px;
+    height: 80px; 
+    min-height: 80px;  
+    max-height: 80px;
 }
 
 .article-body {
