@@ -18,13 +18,20 @@ class Post(db.Model):
     total_likes = 0
     liked = False
 
-    def render(self, user):
-        self._render_text = self.content.replace('\n', '<br>')
-        # Find URL inside the text and converts to clickable links
+    def format_content(self, content):
+        '''
+        Find URL inside the text and converts to clickable links
+        content (string): Full text to search for URLs
+        '''
+        content = content.replace('\n', '<br>')
         urls = re.compile(r"((https?):((//)|(\\\\))+[\w\d:#@%/;$()~_?\+-=\\\.&]*)", 
                           re.MULTILINE | re.UNICODE)
-        self._render_text = urls.sub(r'<a href="\1" target="_blank">\1</a>',
-                                     self._render_text)
+        content = urls.sub(r'<a href="\1" target="_blank">\1</a>', content)
+        return content
+
+    def render(self, user):
+        self._render_text = self.format_content(self.content)
+
         if self.comments:
             self.total_comments = self.comments.count()
         if self.likes:
@@ -37,4 +44,3 @@ class Post(db.Model):
         return BaseHandler.simple_render_str("post.html",
                                              p=self,
                                              user=user)
-

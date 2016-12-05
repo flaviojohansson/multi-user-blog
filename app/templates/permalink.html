@@ -21,7 +21,7 @@
         <h4>Comments</h4>
         {% for comment in post.comments.order('-created') %}
             <blockquote>
-                {{ comment.content | safe }}
+                {{ post.format_content(comment.content) | safe }}
                 <h5>
                     By {{comment.user_name}}, {{comment.created.strftime("%I:%M%p %b %d %Y")}}.
                 </h5>
