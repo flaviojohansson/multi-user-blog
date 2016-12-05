@@ -23,14 +23,16 @@
             </div>
             <div class="navbar-header pull-right header-btn">
             {% if user %}
-                <a href="#" class="btn navbar-btn btn-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, {{user.name | title}} ! <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li ><a href="/blog">My home</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li ><a href="/blog/newpost">Write post</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li ><a href="/logout">Logout</a></li>
-                </ul>
+                <div class="btn-group">
+                    <a href="#" class="btn navbar-btn btn-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, {{user.name | title}} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li ><a href="/blog">My home</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li ><a href="/blog/newpost">Write post</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li ><a href="/logout">Logout</a></li>
+                    </ul>
+                </div>
             {% else %}
                 <a role="button" class="btn navbar-btn btn-default" href="/login">Login</a>
                 <a role="button" class="btn navbar-btn btn-default" href="/signup">Sign up</a>
