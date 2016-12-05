@@ -20,7 +20,8 @@
             <a href="/blog/edit/{{p.key().id()}}" class="btn btn-primary btn-xs">Edit Post</a>
             {% else %}
             <form method="post">
-                <button type="submit" name="action" value="like" class="btn btn-primary btn-xs">Like <span class="badge">{{ p.total_likes }}</span></button>
+                <button type="submit" name="action" value="like" class="btn btn-primary btn-xs">
+                {% if p.liked %}Unlike{% else %}Like{% endif %} <span class="badge">{{ p.total_likes }}</span></button>
             </form>
             {% endif %}
         </div>

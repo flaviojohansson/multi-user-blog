@@ -22,8 +22,15 @@ class PostPage(BaseHandler):
         '''
         # The owner of the post cannot like one's own post
         if self.user.name != post.user_name:
-            like = Like(post=post, user_name=self.user.name)
-            like.put()
+            mylike = post.likes.filter("user_name =", self.user.name)
+            if mylike:
+                # Delete the like record
+                for single_like in mylike:
+                    single_like.delete()
+            else:
+                # Insert the record
+                like = Like(post=post, user_name=self.user.name)
+                like.put()
 
         self.redirect('/blog/%s' % str(post.key().id()))
         return
