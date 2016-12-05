@@ -23,7 +23,7 @@ class PostPage(BaseHandler):
         # The owner of the post cannot like one's own post
         if self.user.name != post.user_name:
             mylike = post.likes.filter("user_name =", self.user.name)
-            if mylike:
+            if mylike.count() > 0:
                 # Delete the like record
                 for single_like in mylike:
                     single_like.delete()
