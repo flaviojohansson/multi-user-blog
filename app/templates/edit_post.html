@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <form class="form-group form-sign" method="post">
+    <form class="form-group" method="post">
         <h2 class="text-center">{% if post_id %}Edit{% else %}New{% endif %} Post</h2>
         <!--has-error-->
         <div class="form-group {% if error %}has-error{% endif %}">
