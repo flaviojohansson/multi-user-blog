@@ -30,7 +30,7 @@ class EditPost(BaseHandler):
                     subject=post.subject,
                     content=post.content)
 
-    def delete(self):
+    def delete(self, post):
         '''
         '''
         post.delete()
@@ -61,10 +61,6 @@ class EditPost(BaseHandler):
         content = self.request.get('content')
 
         if subject and content:
-            # Make sure the logged user is the owner of the post
-            if self.user.name != post.user_name:
-                self.redirect('/post/%s' % str(post.key().id()))
-                return
             post.subject = subject
             post.content = content
             post.put()

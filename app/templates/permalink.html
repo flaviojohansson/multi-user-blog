@@ -27,11 +27,9 @@
             <blockquote>
                 {{ post.format_content(comment.content) | safe }}
                 <footer>{{comment.user_name | title}}, {{comment.created.strftime("%b %d %Y @ %I:%M%p")}}.</footer>
-
                 {% if user.name == comment.user_name %}
-                <a href="/comment/{{comment.key().id()}}">Edit comment</a>
+                <a href="/comment/edit/{{post.key().id()}}/{{comment.key().id()}}">Edit comment</a>
                 {% endif %}
-
             </blockquote>
         {% endfor %}
         {% endif %}
