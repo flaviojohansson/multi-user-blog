@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1 class="text-center">{{ user.name | title }}'s blog</h1>
-    <hr>
+
     {% for p in posts %}
         {{ p.render(user) | safe}}
     {% endfor %}

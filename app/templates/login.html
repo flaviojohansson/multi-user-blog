@@ -13,10 +13,13 @@
         <div class="form-group">
             <label class="control-label" for="username">Password</label>
             <input type="password" class="form-control" id="password" name="password">
-        </div>        
+        </div>
+        {% if redirect %}
+        <input type="hidden" value"{{redirect}}" name="redirect">        
+        {% endif %}
         <button type="submit" class="btn btn-primary">Submit</button>
+        <hr />
     </form>
-    <hr />
     <div class="text-center">Not a registered user ? <a href="/signup">Sign up Here</a></div>
 
 {% endblock %}

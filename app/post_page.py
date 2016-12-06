@@ -24,15 +24,15 @@ class PostPage(BaseHandler):
         if self.user.name != post.user_name:
             mylike = post.likes.filter("user_name =", self.user.name)
             if mylike.count() > 0:
-                # Delete the like record
+                # Unlike. Delete the like record
                 for single_like in mylike:
                     single_like.delete()
             else:
-                # Insert the record
+                # Like. Insert the record
                 like = Like(post=post, user_name=self.user.name)
                 like.put()
 
-        self.redirect('/blog/%s' % str(post.key().id()))
+        self.redirect('/post/%s' % str(post.key().id()))
         return
 
     def comment(self, post):
@@ -44,7 +44,7 @@ class PostPage(BaseHandler):
                               user_name=self.user.name,
                               content=content)
             comment.put()
-            self.redirect('/blog/%s' % str(post.key().id()))
+            self.redirect('/post/%s' % str(post.key().id()))
         else:
             error = "Please write something"
             self.render("permalink.html",

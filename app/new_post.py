@@ -1,3 +1,4 @@
+import urllib
 from google.appengine.ext import db
 from app.base_handler import BaseHandler
 from app.models.post import Post, blogs_key
@@ -8,9 +9,9 @@ class NewPost(BaseHandler):
     '''
     def get(self):
         if self.user:
-            self.render("edit_post.html")
+            self.render('edit_post.html')
         else:
-            self.redirect("/login")
+            self.redirect('/login?redirect=' + urllib.pathname2url('/post/new'))
 
     def post(self):
         if not self.user:
@@ -27,7 +28,7 @@ class NewPost(BaseHandler):
                         subject=subject,
                         content=content)
             post.put()
-            self.redirect('/blog/%s' % str(post.key().id()))
+            self.redirect('/post/%s' % str(post.key().id()))
         else:
             error = "Subject and content, please!"
             self.render("edit_post.html",

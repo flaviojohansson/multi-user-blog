@@ -1,10 +1,13 @@
 <article>
     <div class="row">
         <div class="col-sm-12">
-            <a href="/blog/{{p.key().id()}}">
-                <h2>{{p.subject}}</h2>
+            <a href="/post/{{p.key().id()}}">
+                <h1>{{p.subject}}</h1>
             </a>
-            <p class="lead">By {{p.user_name}}.</p>
+            <p class="lead">By {{p.user_name | title}}.</p>
+            <p>
+                <span class="glyphicon glyphicon-time"></span> Posted {{p.created.strftime("%b %d %Y @ %I:%M%p")}}.
+            </p>
         </div>
     </div>
     <div class="row">
@@ -14,24 +17,24 @@
             </blockquote>
         </div>
     </div>
+    {% if user %}
     <div class="row">
         <div class="col-sm-12">
             {% if user.name == p.user_name %}          
-            <a href="/blog/edit/{{p.key().id()}}" class="btn btn-primary btn-xs">Edit Post</a>
+            <a href="/post/edit/{{p.key().id()}}">Edit Post</a>
             {% else %}
-            <form method="post">
+            <form method="post" action="/post/{{p.key().id()}}">
                 <button type="submit" name="action" value="like" class="btn btn-primary btn-xs">
-                {% if p.liked %}Unlike{% else %}Like{% endif %} <span class="badge">{{ p.total_likes }}</span></button>
+                {% if p.liked %}Unlike{% else %}Like this{% endif %}</button>
             </form>
             {% endif %}
         </div>
     </div>
+    {% endif %}
     <div class="row">
         <div class="col-sm-12">
-            <h5>
-                <span class="glyphicon glyphicon-time"></span> Posted {{p.created.strftime("%b %d %Y @ %I:%M%p")}}.
-            </h5>
-            <em>{{ p.total_comments }} comment{% if p.total_comments > 1 %}s{% endif %}</em>
+            <em>{{ p.total_comments }} comment{% if p.total_comments > 1 %}s{% endif %}</em> |
+            <em>{{ p.total_likes }} like{% if p.total_likes > 1 %}s{% endif %}</em>
         </div>
     </div>
 </article>

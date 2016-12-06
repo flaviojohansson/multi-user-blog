@@ -81,4 +81,4 @@ class Register(Signup):
             user = User.register(self.username, self.password, self.email)
             user.put()
             self.login(user)
-            self.redirect('/blog')
+            self.redirect('/')

@@ -36,8 +36,9 @@ class Post(db.Model):
             self.total_comments = self.comments.count()
         if self.likes:
             self.total_likes = self.likes.count()
-            mylike = self.likes.filter("user_name =", user.name)
-            self.liked = mylike.count() == 1
+            if user:
+                mylike = self.likes.filter("user_name =", user.name)
+                self.liked = mylike.count() == 1
 
         # As long as this is a DB class, it's calling a class method,
         # so it does not inherites BaseHandler user attribute

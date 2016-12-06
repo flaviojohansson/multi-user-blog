@@ -8,7 +8,11 @@ class Login(BaseHandler):
     def get(self):
         '''
         '''
-        self.render("login.html")
+        if self.user:
+            # If user is already logged, redirects to home page
+            self.redirect('/')
+        else:
+            self.render("login.html")
 
     def post(self):
         username = self.request.get('username').lower()
@@ -17,7 +21,9 @@ class Login(BaseHandler):
         user = User.login(username, password)
         if user:
             self.login(user)
-            self.redirect('/blog')
+            # Redirect to the desired page if needed
+            redirect = self.request.get('redirect')
+            self.redirect(redirect if redirect else '/')
         else:
-            msg = 'Invalid login'
+            msg = "Invalid login"
             self.render('login.html', error=msg, username=username)
