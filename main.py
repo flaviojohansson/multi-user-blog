@@ -7,7 +7,7 @@ from app.logout import Logout
 from app.blog import Blog
 from app.new_post import NewPost
 from app.edit_post import EditPost
-from app.post_page import PostPage
+from app.view_post import ViewPost
 from app.edit_comment import EditComment
 
 
@@ -17,7 +17,7 @@ APP = webapp2.WSGIApplication([('/', Blog),
                                ('/logout', Logout),
                                ('/post/new', NewPost),
                                ('/post/edit/([0-9]+)', EditPost),
-                               ('/post/([0-9]+)', PostPage),
+                               ('/post/([0-9]+)', ViewPost),
                                ('/comment/edit/([0-9]+)/([0-9]+)', EditComment),
                                ],
                               debug=True)

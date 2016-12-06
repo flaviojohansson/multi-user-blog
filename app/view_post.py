@@ -5,7 +5,7 @@ from app.models.comment import Comment
 from app.models.like import Like
 
 
-class PostPage(BaseHandler):
+class ViewPost(BaseHandler):
     def get(self, post_id):
         key = db.Key.from_path('Post', int(post_id), parent=blogs_key())
         post = db.get(key)
@@ -14,7 +14,7 @@ class PostPage(BaseHandler):
             self.error(404)
             return
 
-        self.render("permalink.html", post=post)
+        self.render("view_post.html", post=post)
 
     def like(self, post):
         '''
@@ -47,7 +47,7 @@ class PostPage(BaseHandler):
             self.redirect('/post/%s' % str(post.key().id()))
         else:
             error = "Please write something"
-            self.render("permalink.html",
+            self.render("view_post.html",
                         post=post,
                         error=error)
 

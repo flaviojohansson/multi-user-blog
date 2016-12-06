@@ -1,6 +1,7 @@
 import os
 import webapp2
 import jinja2
+import urllib
 from app.lib.security import make_secure_val, check_secure_val
 from app.models.user import User
 
@@ -30,8 +31,14 @@ class BaseHandler(webapp2.RequestHandler):
         '''
         '''
         jinja_template = self.jinja_env.get_template(template)
+
+        # Not logged users can login and get redirected to the current page
+        baseurl = ""
+        if not self.user:
+            baseurl = urllib.pathname2url(self.request.path)
+
         # Always send the user
-        return jinja_template.render(params, user=self.user)
+        return jinja_template.render(params, user=self.user, baseurl=baseurl)
 
     def render(self, template, **kw):
         '''
