@@ -1,38 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+    <section id="main-section">
     {{post.render(user) | safe}}
-
-    <article>
-        {% if user %}
-        <hr />
-        <!-- Comments Form -->
-        <div class="well">
-            <h4>Leave a Comment:</h4>
-            <form class="form-group" method="post">
-            <div class="form-group {% if error %}has-error{% endif %}">
-                <textarea class="form-control comment" name="content" placeholder="Write something nice">{{content}}</textarea>
+        <article>
+            {% if user %}
+            <hr />
+            <div class="well">
+                <h4>Leave a Comment:</h4>
+                <form class="form-group" method="post">
+                <div class="form-group {% if error %}has-error{% endif %}">
+                    <textarea class="form-control comment" name="content" placeholder="Write something nice">{{content}}</textarea>
+                </div>
+                <div class="form-group has-error">
+                    <span class="help-block">{{error}}</span>
+                </div>
+                <button type="submit" class="btn btn-primary">Send</button>
+                </form>
             </div>
-            <div class="form-group has-error">
-                <span class="help-block">{{error}}</span>
+            {% else %}
+            <hr />
+            <div class="well">
+                <a href="/login?redirect={{baseurl}}">Login to like and leave comments</a>
             </div>
-            <button type="submit" class="btn btn-primary">Send</button>
-            </form>
-        </div>
-        {% endif %}       
-        {% if post.total_comments > 0 %}        
-        <hr />
-        {% for comment in post.comments.order('-created') %}
-            <blockquote>
-                {{ post.format_content(comment.content) | safe }}
-                <footer>{{comment.user_name | title}}, {{comment.created.strftime("%b %d %Y @ %I:%M%p")}}.</footer>
-                {% if user.name == comment.user_name %}
-                <a href="/comment/edit/{{post.key().id()}}/{{comment.key().id()}}">Edit comment</a>
-                {% endif %}
-            </blockquote>
-        {% endfor %}
-        {% endif %}
+            {% endif %}
+            {% if post.total_comments > 0 %}        
+            <hr />
+                {% for comment in post.comments.order('-created') %}
+                <blockquote>
+                    {{ post.format_content(comment.content) | safe }}
+                    <footer>{{comment.user_name | title}}, {{comment.created.strftime("%b %d %Y @ %I:%M%p")}}.</footer>
+                    {% if user.name == comment.user_name %}
+                    <a href="/comment/edit/{{post.key().id()}}/{{comment.key().id()}}">Edit comment</a>
+                    {% endif %}
+                </blockquote>
+                {% endfor %}
+            {% endif %}
+        </article>
 
-    </article>
+    </section>
 {% endblock %}

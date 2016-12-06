@@ -7,42 +7,39 @@ from app.models.user import User
 
 
 class BaseHandler(webapp2.RequestHandler):
+    '''Base handler class for all the requests
+    Take care of rendering templates always sending the current user
     '''
 
-    '''
     user = ""
     template_dir = os.path.join(os.path.dirname(__file__), 'templates')
     jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir),
                                    autoescape=True)
 
     def write(self, *a, **kw):
-        '''
-        '''
         self.response.out.write(*a, **kw)
 
     @classmethod
     def simple_render_str(cls, template, **params):
+        '''Renders a template directly.
+        Can be used by Data models classes.
         '''
-        '''
+
         jinja_template = cls.jinja_env.get_template(template)
         return jinja_template.render(params)
 
     def render_str(self, template, **params):
-        '''
-        '''
         jinja_template = self.jinja_env.get_template(template)
 
-        # Not logged users can login and get redirected to the current page
-        baseurl = ""
+        # Not logged users can login and then get redirected to the current page
+        baseurl = ''
         if not self.user:
             baseurl = urllib.pathname2url(self.request.path)
 
-        # Always send the user
+        # Always send the user to the templates
         return jinja_template.render(params, user=self.user, baseurl=baseurl)
 
     def render(self, template, **kw):
-        '''
-        '''
         self.write(self.render_str(template, **kw))
 
     def set_secure_cookie(self, name, val):

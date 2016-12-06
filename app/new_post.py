@@ -5,15 +5,18 @@ from app.models.post import Post, blogs_key
 
 
 class NewPost(BaseHandler):
-    '''
-    '''
+    'New post class'
+
     def get(self):
+        # Not logged users are redirect to the login page and then
+        # redirected back here
         if self.user:
             self.render('edit_post.html')
         else:
             self.redirect('/login?redirect=' + urllib.pathname2url('/post/new'))
 
     def post(self):
+        # Not logged users are redirected to the login page
         if not self.user:
             self.redirect('/login')
             return

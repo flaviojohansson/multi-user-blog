@@ -3,6 +3,10 @@ from app.models.post import Post
 
 
 class Blog(BaseHandler):
+    '''Main page class.
+    List all the posts for any user
+    '''
+
     def get(self):
         posts = Post.\
                 all().\

@@ -11,7 +11,7 @@ handlers:
   upload: static/img/favicon\.ico
 
 - url: /.*
-  script: main.APP
+  script: main.app
 
 libraries:
 - name: jinja2

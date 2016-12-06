@@ -5,9 +5,13 @@ from app.models.post import Post, blogs_key
 
 
 class EditComment(BaseHandler):
+    '''Edit comment class.
+    Users can edit one's own post comments
     '''
-    '''
+
     def get(self, post_id, comment_id):
+        # Not logged users are redirect to the login page and then
+        # redirected back here
         if not self.user:
             self.redirect('/login?redirect=' +
                           urllib.pathname2url('/comment/edit/{}/{}'.format(
@@ -32,14 +36,13 @@ class EditComment(BaseHandler):
                     content=comment.content)
 
     def delete(self, comment):
-        '''
-        '''
         post_id = comment.post.key().id()
         comment.delete()
         self.redirect('/post/%s' % str(post_id))
         return
 
     def post(self, post_id, comment_id):
+        # Not logged users are redirected to the login page
         if not self.user:
             self.redirect('/login')
             return
@@ -54,11 +57,11 @@ class EditComment(BaseHandler):
             return
 
         # When the user clicks on the delete button the action becomes 'delete'
-        if self.request.get('action') == "delete":
+        if self.request.get('action') == 'delete':
             self.delete(comment)
             return
 
-        # The default operation is update the comment
+        # The default post method is update the comment
         content = self.request.get('content')
 
         if content:
@@ -66,7 +69,7 @@ class EditComment(BaseHandler):
             comment.put()
             self.redirect('/post/%s' % str(post_id))
         else:
-            error = "Please write something"
-            self.render("edit_comment.html",
+            error = 'Please write something'
+            self.render('edit_comment.html',
                         content=content,
                         error=error)

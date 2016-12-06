@@ -8,6 +8,14 @@ def blogs_key(name='default'):
 
 
 class Post(db.Model):
+    '''Post DataModel. Contains 3 extra attributes.
+
+    Extra attributes:
+        total_comments (int): The total of the comments of the post
+        total_likes (int): The total of likes of the post
+        liked (bool): Whether or not the user's already liked a post
+    '''
+
     user_id = db.ReferenceProperty(required=True)
     user_name = db.StringProperty(required=True)
     subject = db.StringProperty(required=True)
@@ -19,10 +27,12 @@ class Post(db.Model):
     liked = False
 
     def format_content(self, content):
+        '''Find URLs inside the text and converts into clickable links
+
+        Parameters:
+            content (string): Full text to search for URLs
         '''
-        Find URL inside the text and converts to clickable links
-        content (string): Full text to search for URLs
-        '''
+
         content = content.replace('\n', '<br>')
         urls = re.compile(r"((https?):((//)|(\\\\))+[\w\d:#@%/;$()~_?\+-=\\\.&]*)", 
                           re.MULTILINE | re.UNICODE)
@@ -30,18 +40,28 @@ class Post(db.Model):
         return content
 
     def render(self, user):
+        '''Render a single post, without comments.
+
+        Parameters:
+            user: The user DataModel object.
+        '''
+
+        # Convert the URL into clickable links
         self._render_text = self.format_content(self.content)
 
+        # Class attribute with the total of comments
         if self.comments:
             self.total_comments = self.comments.count()
+        # Class attribute with the total of likes
         if self.likes:
             self.total_likes = self.likes.count()
             if user:
-                mylike = self.likes.filter("user_name =", user.name)
+                # Class attribute to whether or not the user has liked the post
+                mylike = self.likes.filter('user_name =', user.name)
                 self.liked = mylike.count() == 1
 
-        # As long as this is a DB class, it's calling a class method,
-        # so it does not inherites BaseHandler user attribute
-        return BaseHandler.simple_render_str("post.html",
+        # As long as this is a DataModel class, it doesn't
+        # inherits BaseHandler self.user
+        return BaseHandler.simple_render_str('post.html',
                                              p=self,
                                              user=user)

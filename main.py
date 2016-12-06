@@ -11,7 +11,7 @@ from app.view_post import ViewPost
 from app.edit_comment import EditComment
 
 
-APP = webapp2.WSGIApplication([('/', Blog),
+app = webapp2.WSGIApplication([('/', Blog),
                                ('/signup', Register),
                                ('/login', Login),
                                ('/logout', Logout),

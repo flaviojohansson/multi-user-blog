@@ -1,10 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-
     <form class="form-group form-sign" method="post">
         <h2 class="text-center">Login</h2>
-        <!--has-error-->
         <div class="form-group {% if error %}has-error{% endif %}">
             <label class="control-label" for="username">User Name</label>
             <input type="text" class="form-control" id="username" name="username" value="{{username}}" placeholder="Bobdoyle">
@@ -21,5 +19,4 @@
         <hr />
     </form>
     <div class="text-center">Not a registered user ? <a href="/signup">Sign up Here</a></div>
-
 {% endblock %}
