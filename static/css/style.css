@@ -11,6 +11,13 @@ body {
     height: 20px;
 }
 
+.btn-user{
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .form-sign {
     max-width: 330px;
     margin: 0 auto

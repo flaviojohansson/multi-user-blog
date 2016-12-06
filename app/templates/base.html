@@ -23,18 +23,20 @@
             </div>
             <div class="navbar-header pull-right header-btn">
             {% if user %}
+                <a role="button" class="btn navbar-btn btn-primary" href="/post/new">New post</a>
                 <div class="btn-group">
-                    <a href="#" class="btn navbar-btn btn-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, {{user.name | title}} <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
+                    <a href="#" class="btn navbar-btn btn-default  dropdown-toggle btn-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.name | title}} <span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-menu-right">
                         <li ><a href="/">Home</a></li>
                         <li role="separator" class="divider"></li>
-                        <li ><a href="/newpost">Write post</a></li>
+                        <li ><a href="/post/new">New post</a></li>
                         <li role="separator" class="divider"></li>
-                        <li ><a href="/logout">Logout</a></li>
+                        <li ><a href="/logout" class="link-danger">Logout</a></li>
                     </ul>
                 </div>
+
             {% else %}
-                <a role="button" class="btn navbar-btn btn-default" href="/login">Login</a>
+                <a role="button" class="btn navbar-btn btn-primary" href="/login">Login</a>
                 <a role="button" class="btn navbar-btn btn-default" href="/signup">Sign up</a>
             {% endif %}
             </div>
