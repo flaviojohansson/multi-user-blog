@@ -27,7 +27,7 @@ class ViewPost(BaseHandler):
         '''
 
         # The owner of the post cannot like his own post
-        if self.user.name != post.user_name:
+        if self.user.name != post.user.name:
             # Check if the user already has liked the post
             mylike = post.likes.filter('user_name =', self.user.name)
             if mylike.count() > 0:
@@ -49,7 +49,7 @@ class ViewPost(BaseHandler):
         content = self.request.get('content')
         if content:
             comment = Comment(post=post,
-                              user_name=self.user.name,
+                              user=self.user,
                               content=content)
             comment.put()
             self.redirect('/post/%s' % str(post.key().id()))

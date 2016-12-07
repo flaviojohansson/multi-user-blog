@@ -1,6 +1,7 @@
+import re
 from google.appengine.ext import db
 from app.handlers.base_handler import BaseHandler
-import re
+from app.models.user import User
 
 
 def blogs_key(name='default'):
@@ -10,8 +11,7 @@ def blogs_key(name='default'):
 class Post(db.Model):
     'Post DataModel'
 
-    user_id = db.ReferenceProperty(required=True)
-    user_name = db.StringProperty(required=True)
+    user = db.ReferenceProperty(User, required=True)
     subject = db.StringProperty(required=True)
     content = db.TextProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)

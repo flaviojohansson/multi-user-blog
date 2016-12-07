@@ -26,8 +26,7 @@ class NewPost(BaseHandler):
 
         if subject and content:
             post = Post(parent=blogs_key(),
-                        user_id=self.user.key(),
-                        user_name=self.user.name,
+                        user=self.user,
                         subject=subject,
                         content=content)
             post.put()
