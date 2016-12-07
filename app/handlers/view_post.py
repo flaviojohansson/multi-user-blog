@@ -29,14 +29,15 @@ class ViewPost(BaseHandler):
         # The owner of the post cannot like his own post
         if self.user.key() != post.user.key():
             # Check if the user already has liked the post
-            mylike = post.likes.filter('user_name =', self.user.name)
+            mylike = post.likes.filter('user =', self.user.key())
             if mylike.count() > 0:
                 # Unlike. Delete the like record
                 for single_like in mylike:
                     single_like.delete()
             else:
                 # Like. Insert the record
-                like = Like(post=post, user_name=self.user.name)
+                like = Like(post=post,
+                            user=self.user)
                 like.put()
 
         self.redirect('/post/%s' % str(post.key().id()))

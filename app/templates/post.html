@@ -25,7 +25,7 @@
             {% else %}
             <form method="post" action="/post/{{p.key().id()}}">
                 <button type="submit" name="action" value="like" class="btn btn-primary btn-xs">
-                {% if p.likes.filter('user_name =', user.name).count() > 0 %}Unlike{% else %}Like this{% endif %}</button>
+                {% if p.likes.filter('user =', user.key()).count() > 0 %}Unlike{% else %}Like this{% endif %}</button>
             </form>
             {% endif %}
         </div>
