@@ -35,6 +35,13 @@ class EditPost(BaseHandler):
                     content=post.content)
 
     def delete(self, post):
+        # Delete all comments first
+        for comment in post.comments:
+            comment.delete()
+        # Delete all likes second
+        for like in post.likes:
+            like.delete()
+        # Delete the post itself
         post.delete()
         self.redirect('/')
         return
