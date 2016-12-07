@@ -49,6 +49,10 @@ class EditPost(BaseHandler):
         key = db.Key.from_path('Post', int(post_id), parent=blogs_key())
         post = db.get(key)
 
+        if not post:
+            self.error(404)
+            return
+
         # Make sure the logged user is the owner of the post
         if self.user.name != post.user_name:
             self.redirect('/post/%s' % str(post.key().id()))
