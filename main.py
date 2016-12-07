@@ -1,14 +1,14 @@
 import jinja2
 import webapp2
 
-from app.signup import Register
-from app.login import Login
-from app.logout import Logout
-from app.blog import Blog
-from app.new_post import NewPost
-from app.edit_post import EditPost
-from app.view_post import ViewPost
-from app.edit_comment import EditComment
+from app.handlers.signup import Register
+from app.handlers.login import Login
+from app.handlers.logout import Logout
+from app.handlers.blog import Blog
+from app.handlers.new_post import NewPost
+from app.handlers.edit_post import EditPost
+from app.handlers.view_post import ViewPost
+from app.handlers.edit_comment import EditComment
 
 
 app = webapp2.WSGIApplication([('/', Blog),

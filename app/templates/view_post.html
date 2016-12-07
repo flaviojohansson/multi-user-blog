@@ -24,7 +24,7 @@
                 <a href="/login?redirect={{baseurl}}">Login to like and leave comments</a>
             </div>
             {% endif %}
-            {% if post.total_comments > 0 %}        
+            {% if post.comments.count() > 0 %}        
             <hr />
                 {% for comment in post.comments.order('-created') %}
                 <blockquote>

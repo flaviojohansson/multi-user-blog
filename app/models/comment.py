@@ -1,5 +1,4 @@
 from google.appengine.ext import db
-from app.base_handler import BaseHandler
 from app.models.post import Post
 
 

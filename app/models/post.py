@@ -1,5 +1,5 @@
 from google.appengine.ext import db
-from app.base_handler import BaseHandler
+from app.handlers.base_handler import BaseHandler
 import re
 
 
@@ -11,8 +11,6 @@ class Post(db.Model):
     '''Post DataModel. Contains 3 extra attributes.
 
     Extra attributes:
-        total_comments (int): The total of the comments of the post
-        total_likes (int): The total of likes of the post
         liked (bool): Whether or not the user's already liked a post
     '''
 
@@ -22,8 +20,6 @@ class Post(db.Model):
     content = db.TextProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)
     last_modified = db.DateTimeProperty(auto_now=True)
-    total_comments = 0
-    total_likes = 0
     liked = False
 
     def format_content(self, content):
@@ -49,16 +45,10 @@ class Post(db.Model):
         # Convert the URL into clickable links
         self._render_text = self.format_content(self.content)
 
-        # Class attribute with the total of comments
-        if self.comments:
-            self.total_comments = self.comments.count()
-        # Class attribute with the total of likes
-        if self.likes:
-            self.total_likes = self.likes.count()
-            if user:
-                # Class attribute to whether or not the user has liked the post
-                mylike = self.likes.filter('user_name =', user.name)
-                self.liked = mylike.count() == 1
+        if user:
+            # Class attribute to whether or not the user has liked the post
+            mylike = self.likes.filter('user_name =', user.name)
+            self.liked = mylike.count() == 1
 
         # As long as this is a DataModel class, it doesn't
         # inherits BaseHandler self.user

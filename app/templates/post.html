@@ -33,8 +33,8 @@
     {% endif %}
     <div class="row">
         <div class="col-sm-12">
-            <em>{{ p.total_comments }} comment{% if p.total_comments > 1 %}s{% endif %}</em> |
-            <em>{{ p.total_likes }} like{% if p.total_likes > 1 %}s{% endif %}</em>
+            <em>{{ p.comments.count() }} comment{% if p.comments.count() > 1 %}s{% endif %}</em> |
+            <em>{{ p.likes.count() }} like{% if p.likes.count() > 1 %}s{% endif %}</em>
         </div>
     </div>
 </article>
