@@ -8,11 +8,7 @@ def blogs_key(name='default'):
 
 
 class Post(db.Model):
-    '''Post DataModel. Contains 3 extra attributes.
-
-    Extra attributes:
-        liked (bool): Whether or not the user's already liked a post
-    '''
+    'Post DataModel'
 
     user_id = db.ReferenceProperty(required=True)
     user_name = db.StringProperty(required=True)
@@ -20,7 +16,6 @@ class Post(db.Model):
     content = db.TextProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)
     last_modified = db.DateTimeProperty(auto_now=True)
-    liked = False
 
     def format_content(self, content):
         '''Find URLs inside the text and converts into clickable links
@@ -44,11 +39,6 @@ class Post(db.Model):
 
         # Convert the URL into clickable links
         self._render_text = self.format_content(self.content)
-
-        if user:
-            # Class attribute to whether or not the user has liked the post
-            mylike = self.likes.filter('user_name =', user.name)
-            self.liked = mylike.count() == 1
 
         # As long as this is a DataModel class, it doesn't
         # inherits BaseHandler self.user
