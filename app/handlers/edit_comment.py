@@ -27,7 +27,7 @@ class EditComment(BaseHandler):
             return
 
         # Make sure the logged user is the owner of the post
-        if self.user.name != comment.user.name:
+        if self.user.key() != comment.user.key():
             self.redirect('/post/%s' % str(post_id))
             return
 
@@ -56,7 +56,7 @@ class EditComment(BaseHandler):
             return
 
         # Make sure the logged user is the owner of the comment
-        if self.user.name != comment.user.name:
+        if self.user.key() != comment.user.key():
             self.redirect('/post/%s' % str(post_id))
             return
 

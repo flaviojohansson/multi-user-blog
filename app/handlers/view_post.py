@@ -27,7 +27,7 @@ class ViewPost(BaseHandler):
         '''
 
         # The owner of the post cannot like his own post
-        if self.user.name != post.user.name:
+        if self.user.key() != post.user.key():
             # Check if the user already has liked the post
             mylike = post.likes.filter('user_name =', self.user.name)
             if mylike.count() > 0:

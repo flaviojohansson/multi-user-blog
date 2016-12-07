@@ -25,7 +25,7 @@ class EditPost(BaseHandler):
             return
 
         # Make sure the logged user is the owner of the post
-        if self.user.name != post.user.name:
+        if self.user.key() != post.user.key():
             self.redirect('/post/%s' % str(post_id))
             return
 
@@ -54,7 +54,7 @@ class EditPost(BaseHandler):
             return
 
         # Make sure the logged user is the owner of the post
-        if self.user.name != post.user.name:
+        if self.user.key() != post.user.key():
             self.redirect('/post/%s' % str(post.key().id()))
             return
 

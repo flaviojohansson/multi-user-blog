@@ -20,7 +20,7 @@
     {% if user %}
     <div class="row">
         <div class="col-sm-12">
-            {% if user.name == p.user.name %}          
+            {% if user.key() == p.user.key() %}
             <a href="/post/edit/{{p.key().id()}}">Edit Post</a>
             {% else %}
             <form method="post" action="/post/{{p.key().id()}}">
