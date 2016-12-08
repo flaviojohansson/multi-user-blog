@@ -11,7 +11,7 @@ class ViewPost(BaseHandler):
     List the post itself and all its comments
     '''
 
-    @check_if_valid
+    @check_if_valid("Post")
     def get(self, post_id):
         key = db.Key.from_path('Post', int(post_id))
         post = db.get(key)
