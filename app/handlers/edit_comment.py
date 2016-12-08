@@ -45,6 +45,9 @@ class EditComment(BaseHandler):
         self.redirect('/post/%s' % str(post_id))
         return
 
+    @check_if_logged
+    @check_if_valid("Comment")
+    @check_if_owner("Comment")
     def post(self, post_id, comment_id):
         # Not logged users are redirected to the login page
         if not self.user:

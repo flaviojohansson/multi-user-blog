@@ -1,3 +1,6 @@
+from google.appengine.ext import db
+
+
 def check_if_logged(func):
     '''Not logged users are redirect to the login page and then
     redirected back to the original page'''
@@ -19,13 +22,16 @@ def check_if_valid(class_name):
         class_name: Datamodel name. e.g: Post, Comment'''
 
     def entity_exists(func):
-        def func_wrapper(self, entity_id):
+        def func_wrapper(self, *args):
+
+            # Always the last parameter. Being post or comment
+            entity_id = args[-1]
 
             key = db.Key.from_path(class_name, int(entity_id))
             entity = db.get(key)
 
             if entity:
-                func(self, entity_id)  # Carry on
+                func(self, *args)  # Carry on
             else:
                 self.redirect('/')  # Smoothly goes to main page
                 return
@@ -40,16 +46,22 @@ def check_if_owner(class_name):
         class_name: Datamodel name. e.g: Post, Comment'''
 
     def is_user_the_owner(func):
-        def func_wrapper(self, entity_id):
+        def func_wrapper(self, *args):
+
+            # Always the last parameter. Being post or comment
+            entity_id = args[-1]
+
+            # In the other hand, the post_id is always the second
+            post_id = args[1]
 
             key = db.Key.from_path(class_name, int(entity_id))
             entity = db.get(key)
 
             if self.user.key() == entity.user.key():
-                func(self, entity_id)  # Carry on
+                func(self, *args)  # Carry on
             else:
                 # Always back to the related Post page, even for comments
-                self.redirect('/post/%s' % str(entity_id))
+                self.redirect('/post/%s' % str(post_id))
                 return
 
         return func_wrapper

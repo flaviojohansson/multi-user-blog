@@ -3,6 +3,7 @@ from app.handlers.base_handler import BaseHandler
 from app.models.post import Post
 from app.models.comment import Comment
 from app.models.like import Like
+from app.lib.decorators import check_if_logged, check_if_owner, check_if_valid
 
 
 class ViewPost(BaseHandler):
@@ -10,14 +11,10 @@ class ViewPost(BaseHandler):
     List the post itself and all its comments
     '''
 
+    @check_if_valid
     def get(self, post_id):
         key = db.Key.from_path('Post', int(post_id))
         post = db.get(key)
-
-        if not post:
-            self.error(404)
-            return
-
         self.render('view_post.html', post=post)
 
     def like(self, post):
@@ -60,12 +57,9 @@ class ViewPost(BaseHandler):
                         post=post,
                         error=error)
 
+    @check_if_logged
+    @check_if_valid("Post")
     def post(self, post_id):
-        # Only logged users can write comments or like the post
-        if not self.user:
-            self.redirect('/login')
-            return
-
         # Get the post itself
         key = db.Key.from_path('Post', int(post_id))
         post = db.get(key)
