@@ -11,8 +11,6 @@ class BaseHandler(webapp2.RequestHandler):
     Take care of rendering templates always sending the current user
     '''
 
-    user = ""
-    base_url = ""
     jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR),
                                    autoescape=True)
 
@@ -30,9 +28,6 @@ class BaseHandler(webapp2.RequestHandler):
 
     def render_str(self, template, **params):
         jinja_template = self.jinja_env.get_template(template)
-
-        # Whenever a page needs to call the login and then be redirected back
-        self.base_url = urllib.pathname2url(self.request.path)
 
         # Always send the user to the templates
         return jinja_template.render(params,
@@ -62,3 +57,5 @@ class BaseHandler(webapp2.RequestHandler):
         webapp2.RequestHandler.initialize(self, *a, **kw)
         uid = self.read_secure_cookie('user_id')
         self.user = uid and User.by_id(int(uid))
+        # Whenever a page needs to call the login and then be redirected back
+        self.base_url = urllib.pathname2url(self.request.path)
