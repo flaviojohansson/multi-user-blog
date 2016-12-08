@@ -1,7 +1,8 @@
 import urllib
 from google.appengine.ext import db
 from app.handlers.base_handler import BaseHandler
-from app.models.post import Post, blogs_key
+from app.models.post import Post
+from app.lib.decorators import check_if_logged, check_if_owner, check_if_valid
 
 
 class EditComment(BaseHandler):
@@ -9,6 +10,9 @@ class EditComment(BaseHandler):
     Users can edit one's own post comments
     '''
 
+    @check_if_logged
+    @check_if_valid("Comment")
+    @check_if_owner("Comment")
     def get(self, post_id, comment_id):
         # Not logged users are redirect to the login page and then
         # redirected back here

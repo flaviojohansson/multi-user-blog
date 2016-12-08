@@ -1,6 +1,6 @@
 from google.appengine.ext import db
 from app.handlers.base_handler import BaseHandler
-from app.models.post import Post, blogs_key
+from app.models.post import Post
 from app.models.comment import Comment
 from app.models.like import Like
 
@@ -11,7 +11,7 @@ class ViewPost(BaseHandler):
     '''
 
     def get(self, post_id):
-        key = db.Key.from_path('Post', int(post_id), parent=blogs_key())
+        key = db.Key.from_path('Post', int(post_id))
         post = db.get(key)
 
         if not post:
@@ -67,7 +67,7 @@ class ViewPost(BaseHandler):
             return
 
         # Get the post itself
-        key = db.Key.from_path('Post', int(post_id), parent=blogs_key())
+        key = db.Key.from_path('Post', int(post_id))
         post = db.get(key)
 
         # When the user clicks on the like button the actions becomes 'like'

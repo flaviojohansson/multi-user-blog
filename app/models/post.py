@@ -25,7 +25,7 @@ class Post(db.Model):
         '''
 
         content = content.replace('\n', '<br>')
-        urls = re.compile(r"((https?):((//)|(\\\\))+[\w\d:#@%/;$()~_?\+-=\\\.&]*)", 
+        urls = re.compile(r"((https?):((//)|(\\\\))+[\w\d:#@%/;$()~_?\+-=\\\.&]*)",
                           re.MULTILINE | re.UNICODE)
         content = urls.sub(r'<a href="\1" target="_blank">\1</a>', content)
         return content

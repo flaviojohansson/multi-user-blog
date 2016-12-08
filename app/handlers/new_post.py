@@ -1,7 +1,7 @@
 import urllib
 from google.appengine.ext import db
 from app.handlers.base_handler import BaseHandler
-from app.models.post import Post, blogs_key
+from app.models.post import Post
 
 
 class NewPost(BaseHandler):
@@ -25,8 +25,7 @@ class NewPost(BaseHandler):
         content = self.request.get('content')
 
         if subject and content:
-            post = Post(parent=blogs_key(),
-                        user=self.user,
+            post = Post(user=self.user,
                         subject=subject,
                         content=content)
             post.put()

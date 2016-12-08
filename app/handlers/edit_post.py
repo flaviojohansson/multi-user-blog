@@ -1,33 +1,21 @@
 import urllib
 from google.appengine.ext import db
 from app.handlers.base_handler import BaseHandler
-from app.models.post import Post, blogs_key
+from app.models.post import Post
+from app.lib.decorators import check_if_logged, check_if_owner, check_if_valid
 
 
 class EditPost(BaseHandler):
     '''Edit post class.
-    Users can only edit one's own post
-    '''
+    Users can only edit one's own post'''
 
+    @check_if_logged
+    @check_if_valid("Post")
+    @check_if_owner("Post")
     def get(self, post_id):
-        # Not logged users are redirect to the login page and then
-        # redirected back here
-        if not self.user:
-            self.redirect('/login?redirect=' +
-                          urllib.pathname2url('/post/edit/' + post_id))
-            return
 
-        key = db.Key.from_path('Post', int(post_id), parent=blogs_key())
+        key = db.Key.from_path('Post', int(post_id))
         post = db.get(key)
-
-        if not post:
-            self.error(404)
-            return
-
-        # Make sure the logged user is the owner of the post
-        if self.user.key() != post.user.key():
-            self.redirect('/post/%s' % str(post_id))
-            return
 
         self.render("edit_post.html",
                     post_id=post_id,
@@ -46,24 +34,14 @@ class EditPost(BaseHandler):
         self.redirect('/')
         return
 
+    @check_if_logged
+    @check_if_valid("Post")
+    @check_if_owner("Post")
     def post(self, post_id):
-        # Not logged users are redirected to the login page
-        if not self.user:
-            self.redirect('/login')
-            return
 
         # Get the post itself
-        key = db.Key.from_path('Post', int(post_id), parent=blogs_key())
+        key = db.Key.from_path('Post', int(post_id))
         post = db.get(key)
-
-        if not post:
-            self.error(404)
-            return
-
-        # Make sure the logged user is the owner of the post
-        if self.user.key() != post.user.key():
-            self.redirect('/post/%s' % str(post.key().id()))
-            return
 
         # When the user clicks on the delete button the action becomes 'delete'
         if self.request.get('action') == 'delete':
