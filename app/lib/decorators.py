@@ -50,8 +50,8 @@ def check_if_owner(class_name):
             # Always the last parameter. Being post or comment
             entity_id = args[-1]
 
-            # In the other hand, the post_id is always the second
-            post_id = args[1]
+            # In the other hand, the post_id is always the first
+            post_id = args[0]
 
             key = db.Key.from_path(class_name, int(entity_id))
             entity = db.get(key)
