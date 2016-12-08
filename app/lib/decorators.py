@@ -17,7 +17,8 @@ def check_if_logged(func):
 
 
 def check_if_valid(class_name):
-    '''Make sure the entity exists
+    '''Make sure the entity exists, based on class_name and
+    the last method parameter
      Parameter:
         class_name: Datamodel name. e.g: Post, Comment'''
 
