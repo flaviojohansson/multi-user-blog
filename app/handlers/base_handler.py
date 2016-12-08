@@ -30,10 +30,8 @@ class BaseHandler(webapp2.RequestHandler):
     def render_str(self, template, **params):
         jinja_template = self.jinja_env.get_template(template)
 
-        # Not logged users can login and then get redirected to the current page
-        baseurl = ''
-        if not self.user:
-            baseurl = urllib.pathname2url(self.request.path)
+        # Whenever a page needs to call the login and then be redirected back
+        baseurl = urllib.pathname2url(self.request.path)
 
         # Always send the user to the templates
         return jinja_template.render(params, user=self.user, baseurl=baseurl)
