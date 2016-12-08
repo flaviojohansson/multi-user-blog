@@ -21,9 +21,8 @@ def check_if_valid(class_name):
      Parameter:
         class_name: Datamodel name. e.g: Post, Comment'''
 
-    def entity_exists(func):
+    def wrapper(func):
         def func_wrapper(self, *args):
-
             # Always the last parameter. Being post or comment
             entity_id = args[-1]
 
@@ -37,7 +36,7 @@ def check_if_valid(class_name):
                 return
 
         return func_wrapper
-    return entity_exists
+    return wrapper
 
 
 def check_if_owner(class_name):
@@ -45,7 +44,7 @@ def check_if_owner(class_name):
     Parameter:
         class_name: Datamodel name. e.g: Post, Comment'''
 
-    def is_user_the_owner(func):
+    def wrapper(func):
         def func_wrapper(self, *args):
 
             # Always the last parameter. Being post or comment
@@ -65,4 +64,4 @@ def check_if_owner(class_name):
                 return
 
         return func_wrapper
-    return is_user_the_owner
+    return wrapper
